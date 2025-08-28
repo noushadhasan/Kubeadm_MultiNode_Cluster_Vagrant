@@ -12,6 +12,31 @@ This guide explains how to set up a Kubernetes cluster from scratch using **kube
 * Internet access for downloading packages
 
 ---
+## 📦 VM Provisioning with Vagrant + VirtualBox
+
+If you don’t want to prepare physical machines or cloud VMs manually, you can use **Vagrant** with **VirtualBox** to spin up the cluster nodes.
+
+1. Clone this repository:
+   ```bash
+   git clone <repo-url>
+   cd <repo-name>
+```
+## Inspect the included Vagrantfile and adjust CPU, memory, or network settings as needed.
+
+## Bring up the VMs
+```bash
+vagrant up
+```
+## Check the status
+```bash
+vagrant status
+```
+## SSH into the nodes:
+```bash
+vagrant ssh controlplane
+vagrant ssh node01
+vagrant ssh node02
+```
 
 ## 1. Install Kubernetes Components (On Every Node)
 
@@ -146,3 +171,8 @@ kubectl get nodes -o wide
 ## ✅ Done!
 
 You now have a working Kubernetes cluster with containerd and Flannel networking.
+## When you’re done experimenting, destroy all VMs with a single command:
+```bash
+vagrant destroy -f
+```
+
