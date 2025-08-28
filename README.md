@@ -173,6 +173,8 @@ kubectl get nodes -o wide
 You now have a working Kubernetes cluster with containerd and Flannel networking.
 ## When you’re done experimenting, destroy all VMs with a single command:
 ```bash
+vagrant logout #run on each node
 vagrant destroy -f
 ```
+
 
