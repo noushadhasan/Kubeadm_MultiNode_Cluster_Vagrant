@@ -55,19 +55,22 @@ sudo systemctl restart containerd
 ## 3. Enable IPv4 Packet Forwarding (On Every Node)
 
 ```bash
-# Configure sysctl params
+# Load module now
+sudo modprobe br_netfilter
+
+# Make sure it loads on boot
+echo "br_netfilter" | sudo tee /etc/modules-load.d/br_netfilter.conf
+
+# Add missing sysctl params
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-ip6tables = 1
 net.ipv4.ip_forward = 1
 EOF
 
-# Apply changes
+# Apply immediately
 sudo sysctl --system
 
-# Verify
-sysctl net.ipv4.ip_forward
-
-# Restart kubelet
-sudo systemctl restart kubelet
 ```
 
 ---
