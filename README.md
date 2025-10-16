@@ -111,6 +111,13 @@ ps -p 1
 If output is `systemd`, then kubeadm v1.22+ automatically defaults to the systemd cgroup driver ✅ No need to do anything about it.
 
 ---
+---
+Disacle Swap Memory
+```bash
+sudo swapoff -a
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+```
+---
 
 ## 5. Initialize the Cluster (On Control Plane Node)
 
@@ -176,6 +183,7 @@ You now have a working Kubernetes cluster with containerd and Flannel networking
 vagrant logout #run on each node
 vagrant destroy -f
 ```
+
 
 
 
