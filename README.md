@@ -172,7 +172,10 @@ kubectl label node node02 node-role.kubernetes.io/worker=worker2
 # Verify
 kubectl get nodes -o wide
 ```
-
+If you already ran kubeadm init on your control-plane node, and forget to save the 'kubeadm join' command, you can print the kubeadm join command again with:
+```bash
+kubeadm token create --print-join-command
+```
 ---
 
 ## ✅ Done!
@@ -183,6 +186,7 @@ You now have a working Kubernetes cluster with containerd and Flannel networking
 vagrant logout #run on each node
 vagrant destroy -f
 ```
+
 
 
 
