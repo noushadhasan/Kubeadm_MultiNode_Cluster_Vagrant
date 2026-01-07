@@ -1,6 +1,6 @@
 # -*- mode: ruby -*-
 # vi:set ft=ruby sw=2 ts=2 sts=2:
-
+#
 # Set the build mode
 # "BRIDGE" - Places VMs on your local network so cluster can be accessed from browser.
 #            You must have enough spare IPs on your network for the cluster nodes.
