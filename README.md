@@ -142,6 +142,8 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
  *before apply the manifest make sure you will set the default pod-cidr as 10.244.0.0/16. Calico will get the cidr pool automatically from kube-api-server which is running on kube-system namespace.Else you can set the cidr manually in the calico.yaml in here which lives in the calico-node DaemonSet under:
 ```bash
 wget https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/manifests/calico.yaml
+```
+```bash
 - name: CALICO_IPV4POOL_CIDR
   value: "10.244.0.0/16"
 ```
@@ -197,6 +199,7 @@ You now have a working Kubernetes cluster with containerd and Flannel networking
 vagrant logout #run on each node
 vagrant destroy -f
 ```
+
 
 
 
