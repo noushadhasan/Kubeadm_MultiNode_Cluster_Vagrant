@@ -137,8 +137,20 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
 ---
-
-## 6. Install Network Add-on (Flannel)
+## 6. Install Network Add-on (Calico)
+# Run this on the control plane node:
+ *before apply the manifest make sure you will set the default pod-cidr as 10.244.0.0/16. Calico will get the cidr pool automatically from kube-api-server which is running on kube-system namespace.Else you can set the cidr manually in the calico.yaml in here which lives in the calico-node DaemonSet under:
+```bash
+wget https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/manifests/calico.yaml
+- name: CALICO_IPV4POOL_CIDR
+  value: "10.244.0.0/16"
+```
+* if you set the default cidr then just apply the manifest.
+```bash 
+kubectl apply -f calico.yaml
+kubectl get pods -n kube-system -w
+```
+## OR Install Network Add-on (Flannel)
 
 ```bash
 wget https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
@@ -149,7 +161,6 @@ kubectl get po -n kube-flannel
 ```
 
 > ⚠️ Make sure the CIDR block in `kube-flannel.yml` matches `10.244.0.0/16`.
-
 ---
 
 ## 7. Join Worker Nodes (On Each Worker Node)
@@ -186,6 +197,7 @@ You now have a working Kubernetes cluster with containerd and Flannel networking
 vagrant logout #run on each node
 vagrant destroy -f
 ```
+
 
 
 
