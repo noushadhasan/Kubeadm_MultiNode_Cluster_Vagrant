@@ -97,7 +97,18 @@ EOF
 sudo sysctl --system
 
 ```
+## Disable IPv6 on the worker (RECOMMENDED)
+```bash
+cat <<EOF | sudo tee /etc/sysctl.d/99-disable-ipv6.conf
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+EOF
 
+sudo sysctl --system
+sudo systemctl restart containerd
+sudo systemctl restart kubelet
+```
 ---
 
 ## 4. Configure Kubelet Cgroup Driver (On Every Node)
@@ -199,6 +210,7 @@ You now have a working Kubernetes cluster with containerd and Flannel networking
 vagrant logout #run on each node
 vagrant destroy -f
 ```
+
 
 
 
